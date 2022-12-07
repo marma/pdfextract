@@ -1,21 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from sys import argv,stdin
-
-def chunker(i):
-    chunk = []
-    for line in i:
-        if line == '\n' and chunk != []:
-            yield ''.join(chunk)
-            chunk = []
-        else:
-            chunk += [ line ]
-
-    if chunk != []:
-        yield ''.join(chunk)
+from utils import chunker
 
 
 # @TODO: this will dehyphen incorrectly when line is split on, for example, "A-laget".
+# @TODO: Guarantee that 
 def dehyphenate(chunk):
     ret = []
     part_1 = None
@@ -25,11 +15,9 @@ def dehyphenate(chunk):
 
         words = line.split()
        
-        #print(words)
-
         if part_1 != None:
-            if words[0] in [ 'och', 'eller' ]:
-                word[0] = part_1 + ' ' + word[0]
+            if words[0] in [ 'och', 'eller', 'och/eller' ]:
+                words[0] = part_1 + ' ' + words[0]
             elif words[0][0].isupper() or words[0].replace(':', '').isnumeric():
                 words[0] = part_1 + words[0]
             else:
@@ -41,10 +29,7 @@ def dehyphenate(chunk):
             part_1 = words[-1]
             words = words[:-1]
 
-        #print(words)
         ret += [ ' '.join(words) ]
-
-    #print(ret)
 
     return '\n'.join(ret)
 

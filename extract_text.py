@@ -4,11 +4,12 @@ from sys import argv
 from xml.etree import ElementTree as ET
 from collections import Counter
 from re import findall
-from sklearn.cluster import KMeans
+from sklearn.cluster import MiniBatchKMeans,KMeans
 from hashlib import md5
 from numpy import array
 from kneed import KneeLocator
 from math import sqrt
+from time import time
 
 HEADER_PERCENT=10
 FOOTER_PERCENT=10
@@ -152,25 +153,33 @@ def get_pagenumber_clusters(root):
     for box in get_number_boxes(root):
         centers += [ get_center(box) ]
 
-    if len(centers) > n_pages/2:
+    if len(centers) == 1:
+        return centers
+    elif len(centers) > n_pages/2:
         centers = array([ [ float(x), float(y) ] for (x,y) in centers ])
 
         sse = []
-        for n_clusters in range(1, min(len(centers), 8)):
+        for n_clusters in range(1, min(len(centers) + 1, 5)):
             pagenumber_kmeans = KMeans(n_clusters=n_clusters, random_state=0)
             pagenumber_kmeans.fit(centers)
             sse.append(pagenumber_kmeans.inertia_)
 
+        #print(sse)
+
         # find optimal number of clusters
-        kl = KneeLocator(range(1, min(len(centers), 8)), sse, curve='convex', direction='decreasing')
+        kl = KneeLocator(range(1, min(len(centers), 5)), sse, curve='convex', direction='decreasing')
         n_clusters = kl.elbow
 
         #print('clusters:', n_clusters)
 
-        pagenumber_kmeans = KMeans(n_clusters=n_clusters,random_state=0)
+        t = time()
+        pagenumber_kmeans = KMeans(n_clusters=n_clusters, random_state=0)
         pagenumber_kmeans.fit(centers)
+        #print(time() - t)
+        #print(pagenumber_kmeans.cluster_centers_)
 
         return pagenumber_kmeans.cluster_centers_
+
 
     return []
 
