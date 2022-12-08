@@ -3,7 +3,13 @@
 FILE=$1
 TMPFILE=/tmp/$$.xml
 
-pdf2txt -t xml -o $TMPFILE "$FILE"
-python extract_text_2.py $TMPFILE
+if [ $# -ne 1 ] ; then
+  echo "usage: $0 <pdf-file>" 1>&2
+  exit 1
+fi
 
-rm $TMPFILE
+
+pdf2txt.py -t xml -o $TMPFILE "$FILE"
+python3 extract_text_2.py $TMPFILE
+
+#rm $TMPFILE

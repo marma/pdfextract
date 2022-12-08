@@ -5,7 +5,7 @@ from utils import chunker,is_text
 from re import search
 
 if __name__ == '__main__':
-    i = argv[1]
+    #i = argv[1]
 
     for line in stdin:
         #print('id', 'isbn', 'text', sep='\t')
@@ -20,4 +20,5 @@ if __name__ == '__main__':
 
                 for chunk in chunker(stdin):
                     if is_text(chunk) and chunk.count('.') > 5:
-                        print(i, isbn, chunk.strip().replace('\n', '\\n'), sep='\t')
+                        print(isbn, chunk.strip().replace('\n', '\\n'), sep='\t')
+                        #print(i, isbn, chunk.strip().replace('\n', '\\n'), sep='\t')
