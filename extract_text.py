@@ -165,7 +165,8 @@ def get_pagenumber_clusters(root):
         kl = KneeLocator(range(1, max_centers), sse, curve='convex', direction='decreasing')
         n_clusters = kl.elbow
 
-        #print('clusters:', n_clusters)
+        if not n_clusters:
+            return []
 
         pagenumber_kmeans = KMeans(n_clusters=n_clusters,random_state=0)
         pagenumber_kmeans.fit(centers)
