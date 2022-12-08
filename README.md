@@ -4,6 +4,14 @@ A tool for extracting text from PDFs containing swedish monographs. It attempts 
 
 Ultimately, further cleaning will be needed for some PDFs.
 
+## Installation
+
+```
+# python 3 -m venv venv
+# . venv/bin/activate
+# pip install -r requirements.txt
+```
+
 ## Usage
 
 ```
