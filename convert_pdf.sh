@@ -10,6 +10,6 @@ fi
 
 
 pdf2txt.py -t xml -o $TMPFILE "$FILE"
-python3 extract_text_2.py $TMPFILE
+python3 extract_text.py $TMPFILE | ./dehyphenate.py | ./txt_to_tsv.py
 
-#rm $TMPFILE
+rm $TMPFILE

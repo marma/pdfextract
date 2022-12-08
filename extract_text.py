@@ -193,7 +193,7 @@ if __name__ == '__main__':
     number_clusters = get_pagenumber_clusters(root)
     size = float(counts.most_common(1)[0][0][1])
 
-    print(size, number_clusters, counts, sep='\n', file=stderr)
+    #print(size, number_clusters, counts, sep='\n', file=stderr)
 
     print(f'## START ## ISBN {isbn}')
 
