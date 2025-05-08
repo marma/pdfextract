@@ -1,0 +1,14 @@
+Denna rad ska behållas helt som den är
+medan denna rad ska sluta med 123 efter-
+som "eftersom" ska komma på raden under.
+
+Men om man exempelvis skriver om Britt-
+Marie så ska det inte av-avstavas.
+
+Eller om en konstig tablå tycker att 10-
+20 är ett rimligt sätt att avstava.
+
+Det ska heller inte av-avstavas om man test-
+eller test och inte heller om man test-
+och test eller om man test-
+och/eller test.
